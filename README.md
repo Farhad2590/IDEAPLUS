@@ -102,4 +102,4 @@ ideaplus/
 
 ## Contact
 
-Your Name -farhadhossen2590@example.com
+My Mail -farhadhossen2590@example.com
