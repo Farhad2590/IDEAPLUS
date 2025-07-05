@@ -14,7 +14,7 @@ A modern roadmap management platform where users can submit feature requests, di
 ## Live URLs
 
 - **Frontend**: [https://ideapluse.netlify.app](https://ideapluse.netlify.app)
-- **Backend**: [hhttps://ideaplus.vercel.app](hhttps://ideaplus.vercel.app)
+- **Backend**: [https://ideaplus.vercel.app](https://ideaplus.vercel.app)
 
 
 ## Tech Stack
