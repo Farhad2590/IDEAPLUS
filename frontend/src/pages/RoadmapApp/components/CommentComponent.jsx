@@ -25,12 +25,10 @@ const CommentComponent = ({
   const [submittingReply, setSubmittingReply] = useState(false);
   const [submittingEdit, setSubmittingEdit] = useState(false);
 
-  const maxDepth = 3;
+  const maxDepth = 2;
   const canEdit = currentUser && currentUser._id === comment.user._id;
-  const canReply = depth < maxDepth && currentUser;
+  const canReply = depth < maxDepth && currentUser && depth !== 3;
   const hasReplies = comment.replies && comment.replies.length > 0;
-
-
 
   const handleEdit = async () => {
     if (!editContent.trim()) return;
@@ -81,7 +79,6 @@ const CommentComponent = ({
     }
   };
 
-  // Calculate margin based on depth for better visual hierarchy
   const getMarginClass = () => {
     if (depth === 0) return "mt-4";
     if (depth === 1) return "ml-6 mt-3";
@@ -89,7 +86,6 @@ const CommentComponent = ({
     return "ml-10 mt-3";
   };
 
-  // Calculate border style based on depth
   const getBorderClass = () => {
     if (depth === 0) return "border-l-2 border-slate-200";
     if (depth === 1) return "border-l-2 border-blue-200";
@@ -115,16 +111,6 @@ const CommentComponent = ({
                 <span className="text-xs text-slate-500">
                   {formatDate(comment.createdAt)}
                 </span>
-                {comment.updatedAt !== comment.createdAt && (
-                  <span className="text-xs text-slate-500 italic">
-                    (edited)
-                  </span>
-                )}
-                {depth > 0 && (
-                  <span className="text-xs px-2 py-1 bg-slate-100 text-slate-600 rounded-full">
-                    Reply
-                  </span>
-                )}
               </div>
               {comment.user?.email && (
                 <span className="text-xs text-slate-400">
@@ -222,11 +208,6 @@ const CommentComponent = ({
                   )}
                 </button>
               )}
-
-              {/* Show depth indicator for debugging purposes (remove in production) */}
-              {depth > 0 && (
-                <span className="text-xs text-slate-400">Depth: {depth}</span>
-              )}
             </div>
           </>
         )}
@@ -286,7 +267,6 @@ const CommentComponent = ({
         )}
       </div>
 
-      {/* Nested Replies */}
       {hasReplies && showReplies && (
         <div className="mt-2">
           {comment.replies.map((reply) => (

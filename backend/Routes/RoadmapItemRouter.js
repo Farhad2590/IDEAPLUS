@@ -9,7 +9,6 @@ const ensureAuthenticated = require('../Middlewares/Auth');
 router.use(ensureAuthenticated);
 
 router.get('/', getAllRoadmapItems);
-
 router.get('/:id', getRoadmapItem);
 
 module.exports = router;

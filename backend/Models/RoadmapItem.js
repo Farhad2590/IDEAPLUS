@@ -1,4 +1,3 @@
-// Models/RoadmapItem.js
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -18,12 +17,12 @@ const RoadmapItemSchema = new Schema({
   category: {
     type: String,
     required: true,
-    enum: ["feature", "enhancement", "bugfix", "other"],
+    enum: ["Feature", "Improvement", "Bug", "Other"],
   },
   status: {
     type: String,
     required: true,
-    enum: ["under_review", "planned", "in_progress", "completed", "rejected"],
+    enum: ["In Review", "Planned", "In Progress", "Completed", "Rejected"],
   },
   createdBy: {
     type: Schema.Types.ObjectId,

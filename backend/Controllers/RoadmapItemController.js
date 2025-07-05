@@ -3,21 +3,34 @@ const UpvoteModel = require("../Models/Upvote");
 
 const getAllRoadmapItems = async (req, res) => {
   try {
-    const items = await RoadmapItemModel.find()
-      .populate("createdBy", "name email username photo")
-      .sort({ createdAt: -1 });
+    const { status, category, sort } = req.query;
 
-    const itemsWithCounts = await Promise.all(
-      items.map(async (item) => {
-        const upvoteCount = await UpvoteModel.countDocuments({
-          roadmapItem: item._id,
-        });
-        return {
-          ...item.toObject(),
-          upvoteCount,
-        };
-      })
-    );
+    const filter = {};
+    if (status && status !== "all") {
+      filter.status = status;
+    }
+    if (category && category !== "all") {
+      filter.category = category;
+    }
+
+    let sortOption = { createdAt: -1 }; 
+    if (sort === "oldest") {
+      sortOption = { createdAt: 1 };
+    } else if (sort === "most_upvotes") {
+      sortOption = { upvotes: -1 };
+    } else if (sort === "least_upvotes") {
+      sortOption = { upvotes: 1 }; 
+    }
+
+    const items = await RoadmapItemModel.find(filter)
+      .populate("createdBy", "name email username photo")
+      .sort(sortOption)
+      .lean(); 
+
+    const itemsWithCounts = items.map((item) => ({
+      ...item,
+      upvoteCount: item.upvotes || 0, 
+    }));
 
     res.status(200).json({
       message: "Roadmap items retrieved successfully",
@@ -49,10 +62,9 @@ const getRoadmapItem = async (req, res) => {
       });
     }
 
-    const upvoteCount = await UpvoteModel.countDocuments({ roadmapItem: id });
     const responseItem = {
       ...item.toObject(),
-      upvoteCount,
+      upvoteCount: item.upvotes || 0, 
     };
 
     res.status(200).json({
@@ -69,9 +81,7 @@ const getRoadmapItem = async (req, res) => {
   }
 };
 
-
-
 module.exports = {
   getAllRoadmapItems,
-  getRoadmapItem
+  getRoadmapItem,
 };
