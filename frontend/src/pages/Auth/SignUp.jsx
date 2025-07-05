@@ -139,7 +139,7 @@ const SignUp = () => {
         }
       }
 
-      const url = `http://localhost:9000/auth/signup`;
+      const url = `https://ideaplus.vercel.app/auth/signup`;
       const response = await axios.post(
         url,
         {

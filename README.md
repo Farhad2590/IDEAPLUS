@@ -10,6 +10,13 @@ A modern roadmap management platform where users can submit feature requests, di
 - **User Profiles**: Upload profile photos and manage your contributions
 - **Real-time Updates**: See votes and comments update instantly
 
+
+## Live URLs
+
+- **Frontend**: [https://ideapluse.netlify.app](https://ideapluse.netlify.app)
+- **Backend**: [hhttps://ideaplus.vercel.app](hhttps://ideaplus.vercel.app)
+
+
 ## Tech Stack
 
 **Frontend**

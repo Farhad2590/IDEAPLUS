@@ -18,7 +18,7 @@ const useAuth = () => {
         }
 
         const response = await fetch(
-          `http://localhost:9000/auth/user/${userId}`,
+          `https://ideaplus.vercel.app/auth/user/${userId}`,
           {
             headers: {
               Authorization: token,
